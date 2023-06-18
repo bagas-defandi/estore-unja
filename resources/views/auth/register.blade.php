@@ -1,52 +1,76 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
+<!DOCTYPE html>
+<html lang="en">
 
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+</head>
+
+<body>
+    <header class="bg-white py-2">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center">
+                <img src="../img/logo.png" alt="">
+                <h1 class="heading-login text-2xl sm:text-3xl font-bold ml-3 uppercase">E-Store Unja</h1>
+            </div>
         </div>
+    </header>
 
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+    <main>
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid justify-items-center">
+            <div class="w-full bg-white p-5 lg:py-7 lg:px-10 mt-16 rounded-md ff-raleway max-w-3xl lg:max-w-6xl">
+                <h1 class="font-bold text-center text-black text-2xl">Create Account</h1>
+                <form action="{{ route('register') }}" method="POST" class="grid gap-7 mt-11 lg:ml-24">
+                    @csrf
+                    <div class="">
+                        <p class="font-semibold mb-2"><label for="name">Nama Lengkap</label></p>
+                        <input class="w-full lg:w-3/5 border-amber-400 border-2" id="name" name="name"
+                            type="text" value="{{ old('name') }}">
+                        @error('name')
+                            <div class="text-left font-semibold text-sm text-red-600 mt-2">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div>
+                        <p class="font-semibold mb-2"><label for="email">Email</label></p>
+                        <input class="w-full lg:w-3/5 border-amber-400 border-2" id="email" name="email"
+                            type="email" value="{{ old('email') }}">
+                        @error('email')
+                            <div class="text-left font-semibold text-sm text-red-600 mt-2">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div>
+                        <p class="font-semibold mb-2"><label for="password">Password</label></p>
+                        <input class="w-full lg:w-3/5 border-amber-400 border-2" id="password" name="password"
+                            type="password">
+                        @error('password')
+                            <div class="text-left font-semibold text-sm text-red-600 mt-2">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div>
+                        <p class="font-semibold mb-2"><label for="password_confirmation">Konfirmasi Password</label></p>
+                        <input class="w-full lg:w-3/5 border-amber-400 border-2" id="password_confirmation"
+                            name="password_confirmation" type="password">
+                        @error('password_confirmation')
+                            <div class="text-left font-semibold text-sm text-red-600 mt-2">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="justify-self-center lg:justify-self-start">
+                        <input class="bg-amber-400 text-white py-3 px-20 font-bold rounded-full hover:bg-amber-500"
+                            type="submit" value="Sign Up">
+                    </div>
+                </form>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+                <p class="mt-6 font-bold lg:ml-24">Sudah mempunyai akun penjual? Silahkan
+                    <a class="hover:underline hover:underline-offset-4" href="{{ route('login') }}"
+                        style="color: #3A16C9">Login</a>
+                </p>
+            </div>
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
+        </section>
+    </main>
+</body>
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ml-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+</html>
