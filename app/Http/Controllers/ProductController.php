@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -11,7 +13,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::all();
+        return view('product.index', compact('products'));
     }
 
     /**
@@ -19,7 +22,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('product.create');
     }
 
     /**
@@ -27,15 +30,29 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validateData = $request->validate([
+            'nama' => 'required|min:3|max:255',
+            'gambar' => 'required|file|image|max:5000',
+            'harga' => 'required|numeric|min:99',
+            'stok' => 'required|numeric|min:1|max:100',
+            'deskripsi' => 'required',
+        ]);
+
+        $extFile = $request->gambar->getClientOriginalExtension();
+        $namaFile = Auth::user()->name . time() . "." . $extFile;
+        $request->gambar->storeAs('public', $namaFile);
+
+        $validateData['gambar'] = $namaFile;
+        Product::create($validateData);
+        return to_route('penjual.products.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Product $product)
     {
-        //
+        return view('penjual.show');
     }
 
     /**

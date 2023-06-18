@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Penjual</title>
+    <title>Kelola Produk</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
@@ -99,104 +99,71 @@
 
     <main>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div id="default-carousel" class="relative w-full mt-3 md:mt-8" data-carousel="slide">
-                <!-- Carousel wrapper -->
-                <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
-                    <!-- Item 1 -->
-                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                        <img src="{{ asset('img/carousel-1.png') }}"
-                            class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 max-w-4xl"
-                            alt="...">
-                    </div>
-                    <!-- Item 2 -->
-                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                        <img src="{{ asset('img/carousel-2.png') }}"
-                            class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 max-w-4xl"
-                            alt="...">
-                    </div>
-                    <!-- Item 3 -->
-                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                        <img src="{{ asset('img/carousel-3.png') }}"
-                            class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 max-w-4xl"
-                            alt="...">
-                    </div>
-                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                        <img src="{{ asset('../img/carousel-4.png') }}"
-                            class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 max-w-4xl"
-                            alt="...">
-                    </div>
-                </div>
-                <!-- Slider indicators -->
-                <div class="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2">
-                    <button type="button" class="w-3 h-3 rounded-full" aria-current="true" aria-label="Slide 1"
-                        data-carousel-slide-to="0"></button>
-                    <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 2"
-                        data-carousel-slide-to="1"></button>
-                    <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 3"
-                        data-carousel-slide-to="2"></button>
-                    <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 4"
-                        data-carousel-slide-to="3"></button>
-                </div>
-                <!-- Slider controls -->
-                <button type="button"
-                    class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-                    data-carousel-prev>
-                    <span
-                        class="inline-flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                        <svg aria-hidden="true"
-                            class="w-5 h-5 text-w
-                        hite sm:w-6 sm:h-6 dark:text-gray-800"
-                            fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M15 19l-7-7 7-7"></path>
-                        </svg>
-                        <span class="sr-only">Previous</span>
-                    </span>
-                </button>
-                <button type="button"
-                    class="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-                    data-carousel-next>
-                    <span
-                        class="inline-flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                        <svg aria-hidden="true" class="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800"
-                            fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
-                            </path>
-                        </svg>
-                        <span class="sr-only">Next</span>
-                    </span>
-                </button>
-            </div>
-
             <section class="bg-white text-black px-5 py-6 rounded-lg mt-6 mb-4 md:mt-9">
-                <h2 class="text-xl uppercase font-bold border-b-2 pb-1 mb-4 lg:mb-10">{{ Auth::user()->name }} Store
-                </h2>
+                <h2 class="text-xl font-bold pb-1 mb-4 lg:mb-10">{{ Auth::user()->name }} Store</h2>
                 <div class="grid justify-items-center gap-4 sm:grid-cols-2 md:grid-cols-3">
                     <div class="dashboard-menu">
                         <a href="{{ url('/penjual/data-pembelian') }}"
-                            class="category bg-amber-400 p-6 grid justify-items-center hover:bg-amber-500">
-                            <img src="{{ asset('img/icon-pembelian.png') }}" alt="">
+                            class="rounded-3xl bg-amber-400 p-6 grid justify-items-center hover:bg-amber-500">
+                            <img src="../img/icon-pembelian.png" alt="">
                         </a>
-                        <h3 class="ff-raleway font-bold text-lg lg:text-xl lg:mt-2">Menu Data Pembelian</h3>
+                        <h3 class="ff-raleway font-bold text-lg lg:text-xl lg:mt-2">Data Pembelian</h3>
+                    </div>
+                    <div class="dashboard-menu pb-2 border-b-2 border-black">
+                        <a href="{{ url('/penjual/kelola-produk') }}"
+                            class="rounded-3xl bg-amber-400 p-6 grid justify-items-center hover:bg-amber-500">
+                            <img src="../img/icon-produk.png" alt="">
+                        </a>
+                        <h3 class="ff-raleway font-bold text-lg lg:text-xl lg:mt-2">Kelola Produk</h3>
                     </div>
                     <div class="dashboard-menu">
-                        <a href="{{ route('penjual.products.index') }}"
-                            class="category bg-amber-400 p-6 grid justify-items-center hover:bg-amber-500">
-                            <img src="{{ asset('img/icon-produk.png') }}" alt="">
+                        <a href="{{ url('/penjual/proses-pesanan') }}"
+                            class="rounded-3xl bg-amber-400 p-6 grid justify-items-center hover:bg-amber-500">
+                            <img src="../img/icon-pesanan.png" alt="">
                         </a>
-                        <h3 class="ff-raleway font-bold text-lg lg:text-xl lg:mt-2">Menu Kelola Produk</h3>
+                        <h3 class="ff-raleway font-bold text-lg lg:text-xl lg:mt-2">Proses Pesanan</h3>
                     </div>
-                    <div class="dashboard-menu">
-                        <a href="{{ url('penjual/proses-pesanan') }}"
-                            class="category bg-amber-400 p-6 grid justify-items-center hover:bg-amber-500">
-                            <img src="{{ asset('img/icon-pesanan.png') }}" alt="">
-                        </a>
-                        <h3 class="ff-raleway font-bold text-lg lg:text-xl lg:mt-2">Menu Proses Pesanan</h3>
-                    </div>
-
                 </div>
+                <div class="mt-14 bg-gray-300 ff-raleway py-6 px-4 grid">
+                    <div class="flex items-center ml-auto">
+                        <a class="font-bold text-xl mr-2 hover:underline hover:underline-offset-8"
+                            href="{{ route('penjual.products.create') }}">Tambah Produk
+                        </a>
+                        <img style="height: 24px" src="../img/add-black.png" alt="">
+                    </div>
+                    <div class="grid gap-8 justify-items-center mt-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                        @foreach ($products as $product)
+                            <div class="max-width-300">
+                                <a href="{{ url('detail-produk') }}">
+                                    <img class="product-list rounded-t"
+                                        src="{{ asset('storage/' . $product->gambar) }}" alt="">
+                                </a>
+                                <div class="bg-amber-400 p-3 rounded-b">
+                                    <p class="text-md font-bold">{{ $product->nama }}</p>
+                                    <p class="text-md font-medium text-sm">{{ $product->deskripsi }}</p>
+                                    <p class="font-bold mt-4">
+                                        {{ 'Rp.' . number_format($product->harga, 0, ',', '.') }}
+                                    </p>
+                                    <div class="flex gap-2 mt-4 flex-wrap">
+                                        <a href=""
+                                            class="inline-block bg-blue-700 hover:bg-blue-500 py-2 px-8 font-semibold text-white"
+                                            title="Edit Produk">Edit</a>
+                                        <a href=""
+                                            class="flex items-center bg-red-700 hover:bg-red-500 py-2 px-6 font-semibold text-white"
+                                            title="Hapus Produk">
+                                            <svg class="mr-1 -ml-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                    d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                                    clip-rule="evenodd"></path>
+                                            </svg>
+                                            Hapus
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
             </section>
         </div>
     </main>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,5 +32,10 @@ Route::middleware('auth')->group(function () {
 Route::view('/penjual/dashboard', 'penjual.dashboard')
     ->middleware(['auth', 'verified'])
     ->name('penjual.dashboard');
+
+Route::name('penjual.')->middleware(['auth', 'verified'])
+    ->prefix('penjual')->group(function () {
+        Route::resource('products', ProductController::class);
+    });
 
 require __DIR__ . '/auth.php';
