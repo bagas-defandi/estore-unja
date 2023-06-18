@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -38,11 +39,9 @@ class ProductController extends Controller
             'deskripsi' => 'required',
         ]);
 
-        $extFile = $request->gambar->getClientOriginalExtension();
-        $namaFile = Auth::user()->name . time() . "." . $extFile;
-        $request->gambar->storeAs('public', $namaFile);
+        $path = $request->gambar->store('public');
 
-        $validateData['gambar'] = $namaFile;
+        $validateData['gambar'] = substr($path, 7);
         Product::create($validateData);
         return to_route('penjual.products.index');
     }
@@ -52,23 +51,39 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return view('penjual.show');
+        return view('product.show', compact('product'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Product $product)
     {
-        //
+        return view('product.edit', compact('product'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Product $product)
     {
-        //
+        $validateData = $request->validate([
+            'nama' => 'required|min:3|max:255',
+            'gambar' => 'file|image|max:5000',
+            'harga' => 'required|numeric|min:99',
+            'stok' => 'required|numeric|min:1|max:100',
+            'deskripsi' => 'required',
+        ]);
+
+        if (isset($request->gambar)) {
+            Storage::delete('public/' . $product->gambar);
+            $path = $request->gambar->store('public');
+            $validateData['gambar'] = substr($path, 7);
+        }
+
+        Product::where('id', $product->id)->update($validateData);
+
+        return to_route('penjual.products.index');
     }
 
     /**
@@ -76,6 +91,9 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $product = Product::find($id);
+        Storage::delete('public/' . $product->gambar);
+        $product->delete();
+        return to_route('penjual.products.index');
     }
 }
